@@ -28,18 +28,19 @@ try:
         bgr_image = np.asanyarray(color_frame.get_data())
         hsv_image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2HSV)
 
-        binary_image = np.zeros((height, width, 3), dtype=np.uint8)
+        binary_image = np.zeros((height, width), dtype=np.uint8)
 
         # しきい値により特定の色が存在する空間を抽出
         for y in range(height):
             for x in range(width):
-                if hsv_image[y, x, 0] < 10 or hsv_image[y, x, 0] > 350:
-                    binary_image[y, x] = [255, 255, 255]
+                h_flag = hsv_image[y, x, 0] < 10 and hsv_image[y, x, 0] > 0
+                s_flag = hsv_image[y, x, 1] < 290 and hsv_image[y, x, 1] > 170
+                v_flag = hsv_image[y, x, 2] < 220 and hsv_image[y, x, 2] > 130
+                if h_flag and s_flag and v_flag:
+                    binary_image[y, x] = 1
 
-
-#############################
         # 輪郭抽出
-        contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         # 輪郭描画
         contour_image = bgr_image.copy()
