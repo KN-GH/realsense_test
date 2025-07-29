@@ -8,7 +8,7 @@ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
 echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.profile
 echo 'eval "$(pyenv init - bash)"' >> ~/.profile
 
-# python3.13.5で構築
+# python3.11.13で構築
 pyenv install 3.11.13
 
 # 仮想環境を作成
