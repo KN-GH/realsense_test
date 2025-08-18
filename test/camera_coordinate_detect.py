@@ -59,7 +59,7 @@ try:
 
         for cnt in contours:
             (x, y), radius = cv2.minEnclosingCircle(cnt)
-            center = (int(x), int(y))
+            center = np.array([int(x), int(y)])
             radius = int(radius)
 
             if radius > 30:
