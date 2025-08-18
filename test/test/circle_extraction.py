@@ -30,8 +30,8 @@ try:
         bgr_image = np.asanyarray(color_frame.get_data())
         hsv_image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2HSV)
 
-        lower_red = np.array([0, 150, 50])
-        upper_red = np.array([10, 255, 255]) # Sの値は255を上限とします
+        lower_red = np.array([0, 150, 100])
+        upper_red = np.array([5, 255, 255])
         binary_image = cv2.inRange(hsv_image, lower_red, upper_red)
 
         # 輪郭抽出

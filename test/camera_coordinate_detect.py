@@ -49,8 +49,8 @@ try:
         depth_data = np.asanyarray(depth_frame.get_data())
 
         # 赤色検出
-        lower_red = np.array([0, 200, 130])
-        upper_red = np.array([5, 255, 180])
+        lower_red = np.array([0, 150, 0])
+        upper_red = np.array([5, 255, 255])
         binary_image = cv2.inRange(hsv_image, lower_red, upper_red)
 
         contours, _ = cv2.findContours(
