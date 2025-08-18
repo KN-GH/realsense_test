@@ -1,10 +1,12 @@
 import realsense_reader as rsr
 import obj_tracker_by_color as tracker
+import qr_finder as qr
 import pyrealsense2 as rs
 import numpy as np
 import cv2
 
-red_tracker = tracker.ObjTrackerByColor(0, 150, 0, 5, 255, 255)
+red_tracker = tracker.ObjTrackerByColorClass(0, 150, 100, 5, 255, 255)
+qr__ = qr.QRFinderClass()
 realsense = rsr.RealsenseClass(1280, 720)
 realsense.start_camera()
 try:
@@ -19,9 +21,10 @@ try:
                 cv2.circle(circle_image, (x, y), radius, (0, 255, 0), 2)
 
                 point_3d = realsense.get_coord(x, y, depth_frame)
-                print(
-                    f"Pixel: {(x, y)}, Radius: {radius}, 3D Point (X,Y,Z): {point_3d}"
-                )
+                # print(
+                #     f"Pixel: {(x, y)}, Radius: {radius}, 3D Point (X,Y,Z): {point_3d}"
+                # )
+                print(qr__.get_coord(bgr_image))
 
         cv2.imshow("Enclosing Circles", circle_image)
         if cv2.waitKey(1) & 0xFF == ord("q"):

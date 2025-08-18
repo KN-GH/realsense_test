@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-class ObjTrackerByColor:
+class ObjTrackerByColorClass:
     def __init__(self, lower1, lower2, lower3, upper1, upper2, upper3):
         self._lower = np.array([lower1, lower2, lower3])
         self._upper = np.array([upper1, upper2, upper3])
