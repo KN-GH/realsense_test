@@ -18,8 +18,8 @@ config.enable_stream(
 profile = pipe.start(config)
 
 # 深度センサーのスケールを取得（深度値をメートルに変換するため）
-depth_sensor = profile.get_device().first_depth_sensor()
-depth_scale = depth_sensor.get_depth_scale()
+# depth_sensor = profile.get_device().first_depth_sensor()
+# depth_scale = depth_sensor.get_depth_scale()
 
 # アライメントを設定（カラー画像と深度画像の位置を合わせる）
 align_to = rs.stream.color
@@ -46,8 +46,6 @@ try:
         bgr_image = np.asanyarray(color_frame.get_data())
         hsv_image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2HSV)
 
-        depth_data = np.asanyarray(depth_frame.get_data())
-
         # 赤色検出
         lower_red = np.array([0, 150, 0])
         upper_red = np.array([5, 255, 255])
@@ -61,7 +59,7 @@ try:
 
         for cnt in contours:
             (x, y), radius = cv2.minEnclosingCircle(cnt)
-            center = (int(x), int(y))
+            center = np.array([int(x), int(y)])
             radius = int(radius)
 
             if radius > 30:
