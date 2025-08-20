@@ -56,7 +56,9 @@ class RealsenseClass:
         return self._depth_frame
 
     # 画像上の座標から実世界座標を返す
-    def get_coord(self, x, y, depth_frame):
+    def get_point(self, x, y, depth_frame = None):
+        if depth_frame == None:
+            depth_frame = self._depth_frame
         depth_in_meters = depth_frame.get_distance(x, y)
         point_3d = rs.rs2_deproject_pixel_to_point(
             self._depth_intrinsics, [x, y], depth_in_meters
