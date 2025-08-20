@@ -1,7 +1,7 @@
 # color_conf.py
 # 画像の特定の座標の色を出力する
-y = 200
-x = 550
+y = 530
+x = 800
 
 import pyrealsense2 as rs
 import numpy as np
