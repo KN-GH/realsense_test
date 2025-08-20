@@ -13,6 +13,8 @@ class RealsenseClass:
         self._depth_intrinsics = None
         self._color_frame = None
         self._depth_frame = None
+        self._fx = None
+        self._fy = None
 
     # 画像の取得を開始する
     def start_camera(self):
@@ -25,6 +27,12 @@ class RealsenseClass:
             rs.stream.depth, self._width, self._height, rs.format.z16, 30
         )
         profile = self._pipe.start(self._config)
+        color_sensor = profile.get_device().query_sensors()[1]
+        color_sensor.set_option(rs.option.enable_auto_exposure, 0)
+        color_profile = rs.video_stream_profile(profile.get_stream(rs.stream.color))
+        intrinsics = color_profile.get_intrinsics()
+        self._fx = intrinsics.fx  # 水平方向の焦点距離
+        self._fy = intrinsics.fy  # 垂直方向の焦点距離
         align_to = rs.stream.color
         self._align = rs.align(align_to)
         self._depth_intrinsics = (
@@ -64,3 +72,6 @@ class RealsenseClass:
             self._depth_intrinsics, [x, y], depth_in_meters
         )
         return point_3d
+    
+    def get_length_from_px(self, depth, length_px):
+        return (depth * length_pixel) / self._fx
