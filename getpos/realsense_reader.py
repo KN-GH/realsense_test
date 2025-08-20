@@ -74,4 +74,4 @@ class RealsenseClass:
         return point_3d
     
     def get_length_from_px(self, depth, length_px):
-        return (depth * length_pixel) / self._fx
+        return (depth * length_px) / self._fx

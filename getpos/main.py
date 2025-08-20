@@ -34,7 +34,7 @@ try:
             obj_point = realsense.get_point(x, y)
             if radius_in_pixel > 30 and obj_point[2] > 0:
                 cv2.circle(circle_image, (x, y), radius_in_pixel, (0, 255, 0), 2)
-                radois = realsense.get_length_from_px(obj_point, radius_in_pixel)
+                radius = realsense.get_length_from_px(obj_point[2], radius_in_pixel)
                 obj_point_from_origin = converter.point_convert(obj_point[0], obj_point[1], obj_point[2], qr_point[0], qr_point[1], qr_point[2])
                 print(
                     f"obj_point_from_origin: {obj_point_from_origin}, radius: {radius}"
